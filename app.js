@@ -26,7 +26,11 @@ function blank(n){return Array.from({length:n},()=>Array(n).fill(0))}
 function set(g,x,y,v){if(g[y]&&x>=0&&x<g.length)g[y][x]=v}
 function ellipse(g,cx,cy,rx,ry,v){for(let y=0;y<g.length;y++)for(let x=0;x<g.length;x++)if(((x-cx)/rx)**2+((y-cy)/ry)**2<=1)set(g,x,y,v)}
 function rect(g,x0,y0,x1,y1,v){for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)set(g,x,y,v)}
-function line(g,x0,y0,x1,y1,v,t=1){let dx=Math.abs(x1-x0),sx=x0<x1?1:-1,dy=-Math.abs(y1-y0),sy=y0<y1?1:-1,e=dx+dy;for(;;){for(let yy=-t+1;yy<t;yy++)for(let xx=-t+1;xx<t;xx++)set(g,x0+xx,y0+yy,v);if(x0===x1&&y0===y1)break;let e2=2*e;if(e2>=dy){e+=dy;x0+=sx}if(e2<=dx){e+=dx;y0+=sy}}}
+function line(g,x0,y0,x1,y1,v,t=1){
+ x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);
+ let dx=Math.abs(x1-x0),sx=x0<x1?1:-1,dy=-Math.abs(y1-y0),sy=y0<y1?1:-1,e=dx+dy;
+ for(;;){for(let yy=-t+1;yy<t;yy++)for(let xx=-t+1;xx<t;xx++)set(g,x0+xx,y0+yy,v);if(x0===x1&&y0===y1)break;let e2=2*e;if(e2>=dy){e+=dy;x0+=sx}if(e2<=dx){e+=dx;y0+=sy}}
+}
 function makeArt(cat,i){
  let d=i<3?0:i<7?1:2,n=[14,18,22][d],g=blank(n),k=KIND[cat][i],m=Math.floor(n/2),c=d===0?3:d===1?6:9;
  const V=z=>1+((z-1)%c);

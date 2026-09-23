@@ -1,0 +1,8 @@
+{
+  "name": "jax-color-by-numbers",
+  "version": "3.0.1",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}
