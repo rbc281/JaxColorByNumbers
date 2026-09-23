@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#5b4bdb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Jax Colors" />
+  <title>Jax Color by Numbers</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <section id="home-screen" class="screen active">
+      <header class="hero">
+        <button id="parent-button" class="parent-button" aria-label="Parent settings">⚙️</button>
+        <div class="hero-badge">🎨</div>
+        <h1>Jax Color by Numbers</h1>
+        <p>Pick a world and start coloring!</p>
+        <div class="progress-pill"><span id="home-progress">0</span> pictures finished ⭐</div>
+      </header>
+      <div id="category-grid" class="category-grid"></div>
+    </section>
+
+    <section id="levels-screen" class="screen">
+      <header class="topbar">
+        <button class="round-button" data-back="home" aria-label="Back">←</button>
+        <div>
+          <h2 id="category-title">Category</h2>
+          <p id="category-subtitle"></p>
+        </div>
+      </header>
+      <div id="level-grid" class="level-grid"></div>
+    </section>
+
+    <section id="game-screen" class="screen">
+      <header class="game-topbar">
+        <button class="round-button" data-back="levels" aria-label="Back">←</button>
+        <div class="game-heading">
+          <h2 id="level-title">Picture</h2>
+          <div class="mini-progress"><div id="level-progress-bar"></div></div>
+        </div>
+        <button id="hint-button" class="round-button" aria-label="Hint">💡</button>
+      </header>
+
+      <div class="game-stage">
+        <div class="zoom-row">
+          <button id="zoom-out" class="zoom-button" aria-label="Zoom out">−</button>
+          <button id="zoom-reset" class="zoom-label" aria-label="Reset zoom">100%</button>
+          <button id="zoom-in" class="zoom-button" aria-label="Zoom in">+</button>
+        </div>
+        <div id="canvas-wrap" class="canvas-wrap">
+          <div id="color-canvas" class="color-canvas" role="application" aria-label="Color by numbers picture"></div>
+        </div>
+      </div>
+
+      <div id="palette" class="palette" aria-label="Colors"></div>
+    </section>
+  </main>
+
+  <div id="celebration" class="overlay hidden" role="dialog" aria-modal="true">
+    <div id="confetti-layer" class="confetti-layer"></div>
+    <div class="celebration-card">
+      <div class="celebration-art">🌟</div>
+      <h2>Amazing job, Jax!</h2>
+      <p>You finished the picture!</p>
+      <div class="celebration-actions">
+        <button id="replay-button" class="secondary-big">Color Again</button>
+        <button id="next-button" class="primary-big">Next Picture →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="parent-modal" class="overlay hidden" role="dialog" aria-modal="true">
+    <div class="parent-card">
+      <button id="close-parent" class="modal-close" aria-label="Close">×</button>
+      <div id="parent-gate">
+        <div class="parent-icon">🔒</div>
+        <h2>Grown-ups only</h2>
+        <p id="gate-question">What is 6 + 5?</p>
+        <div class="gate-row">
+          <input id="gate-answer" inputmode="numeric" pattern="[0-9]*" aria-label="Answer" />
+          <button id="gate-submit" class="primary-big">Open</button>
+        </div>
+      </div>
+      <div id="parent-settings" class="hidden">
+        <h2>Parent Settings</h2>
+        <p class="settings-note">Everything stays on this device. No ads, purchases, accounts, or outside links.</p>
+        <label class="setting-row">
+          <span><strong>Sound effects</strong><small>Simple celebration sounds</small></span>
+          <input id="sound-toggle" type="checkbox" />
+        </label>
+        <label class="setting-row">
+          <span><strong>Auto-pick next color</strong><small>Moves to the next unfinished number</small></span>
+          <input id="auto-toggle" type="checkbox" />
+        </label>
+        <button id="reset-progress" class="danger-button">Reset all progress</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
