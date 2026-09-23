@@ -1,4 +1,4 @@
-const CACHE="jax-colors-v4";
+const CACHE="jax-colors-v5";
 const ASSETS=["./","./index.html","./styles.css","./app.js","./manifest.webmanifest","./icon.svg"];
 
 self.addEventListener("install",event=>{
@@ -7,9 +7,16 @@ self.addEventListener("install",event=>{
 
 self.addEventListener("activate",event=>{
  event.waitUntil(
-  caches.keys()
-   .then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key))))
-   .then(()=>self.clients.claim())
+  caches.keys().then(async keys=>{
+   const oldJaxCaches=keys.filter(key=>key.startsWith("jax-colors-")&&key!==CACHE);
+   await Promise.all(oldJaxCaches.map(key=>caches.delete(key)));
+   await self.clients.claim();
+
+   if(oldJaxCaches.length){
+    const windows=await self.clients.matchAll({type:"window"});
+    await Promise.all(windows.map(client=>client.navigate(client.url)));
+   }
+  })
  );
 });
 
